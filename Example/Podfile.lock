@@ -1,0 +1,16 @@
+PODS:
+  - ZZGantChart (0.1.0)
+
+DEPENDENCIES:
+  - ZZGantChart (from `../`)
+
+EXTERNAL SOURCES:
+  ZZGantChart:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  ZZGantChart: c2ad21841fcd34d4b659d863c8b918d0cc7f8879
+
+PODFILE CHECKSUM: ca97781b218e6fdb6f0941f5f4ef44005c603b69
+
+COCOAPODS: 1.10.1

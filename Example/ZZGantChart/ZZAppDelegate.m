@@ -7,12 +7,14 @@
 //
 
 #import "ZZAppDelegate.h"
+#import "ZZGantDataTool.h"
 
 @implementation ZZAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+//    [ZZGantDataTool handleData:@"" began:@""];
     return YES;
 }
 

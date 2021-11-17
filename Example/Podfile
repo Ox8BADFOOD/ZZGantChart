@@ -4,7 +4,7 @@ platform :ios, '9.0'
 
 target 'ZZGantChart_Example' do
   pod 'ZZGantChart', :path => '../'
-
+#  pod 'DateTools'
   target 'ZZGantChart_Tests' do
     inherit! :search_paths
 
