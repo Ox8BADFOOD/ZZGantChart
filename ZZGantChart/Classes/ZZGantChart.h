@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZZGantDataTool.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,7 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign) CGFloat bubbleTriangleHeight;
 /// 气泡最大Y值
 @property(nonatomic,assign,readonly) CGFloat bubbleMaxY;
-
+/// 数据源
+@property(nonatomic,strong) NSArray<NSDictionary*> *sourceArr;
 - (instancetype)initWithFrame:(CGRect)frame colors:(NSArray <UIColor *>*)colors NS_DESIGNATED_INITIALIZER;
 
 @end

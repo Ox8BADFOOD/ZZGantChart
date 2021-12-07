@@ -11,6 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZZGantDataTool : NSObject
+/// 将睡眠曲线转换成睡眠模型
+/// @param dataString sdk里去的睡眠曲线
+/// @param fallSleepTime 入睡的时间
 +(NSArray<NSDictionary *> *) handleData:(NSString *)dataString fallSleepTime:(NSDate *)fallSleepTime;
 @end
 

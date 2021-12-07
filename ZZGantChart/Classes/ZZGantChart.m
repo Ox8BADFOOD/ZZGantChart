@@ -7,7 +7,7 @@
 //
 
 #import "ZZGantChart.h"
-#import "ZZGantDataTool.h"
+
 
 @interface ZZGantChart()
 @property(nonatomic,strong) NSArray<UIColor * > *sectionColors;
@@ -19,8 +19,7 @@
 /// 虚线图层
 @property(nonatomic,strong) CAShapeLayer *dashLine;
 
-/// 数据源
-@property(nonatomic,strong) NSArray<NSDictionary*> *sourceArr;
+
 /// 单位（一分钟）在图像上所占用的宽度
 @property(nonatomic,assign) CGFloat unitWidth;
 @end
@@ -106,26 +105,29 @@
 
 - (instancetype)initWithFrame:(CGRect)frame colors:(NSArray <UIColor *>*)colors{
     if (self == [super initWithFrame:frame]) {
-        _bubbleWidth = 150;
+        _bubbleWidth = 100;
         _bubbleHeight = 50;
         _bubbleRadius = 10;
         _bubbleTriangleHeight = 5;
         _bubbleMaxY = _bubbleHeight + _bubbleTriangleHeight;
         _sectionColors = colors;
         [self configUI];
-        NSDateFormatter *format = [[NSDateFormatter alloc] init];
-        [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    //    fallSleepTime = []
-        NSString * dateStr = @"2021-11-14 01:55:00";
-        NSDate * date = [format dateFromString:dateStr];
-        _sourceArr = [ZZGantDataTool handleData:@"" fallSleepTime:date];
-        _unitWidth = self.frame.size.width / _sourceArr.count;
     }
     return self;
 }
 
+-(void)setSourceArr:(NSArray<NSDictionary *> *)sourceArr{
+    _sourceArr = sourceArr;//
+    int totalTime = 0;
+    for (NSDictionary *dic in sourceArr) {
+        totalTime = totalTime + [dic[@"range"] intValue];
+    }
+    _unitWidth = self.frame.size.width / totalTime;
+    [self setNeedsDisplay];
+}
+
 -(void)configUI{
-    self.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.2];
+    self.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     self.dashLine.frame = CGRectMake(_bubbleWidth/2, _bubbleMaxY, 1, self.frame.size.height - _bubbleMaxY);
     [self.layer addSublayer:self.dashLine];
     self.bubbleLayer.frame = CGRectMake(0, 0, _bubbleWidth, _bubbleHeight + _bubbleTriangleHeight);
@@ -202,18 +204,18 @@
 
 -(void)drawRect:(CGRect)rect{
     int itemNum = (int)self.sectionColors.count;
-    CGFloat lineWidth = 1;
-    CGFloat line_space = rect.size.height / (itemNum + 1);
-    CGFloat chartStarY = line_space / 2.0;
+    CGFloat lineWidth = 0.7;
+    CGFloat line_space = rect.size.height / (itemNum);
+    CGFloat chartStarY = 0;
     // 横线
-    for (int i = 1; i <= itemNum; i++) {
+    for (int i = 0; i <= itemNum; i++) {
         [self drawLineWidth:lineWidth star:CGPointMake(lineWidth, i*line_space) end:CGPointMake(rect.size.width - lineWidth, line_space * i)];
     }
     // 竖线
-    for (int i = 0; i < 2; i++) {
-        [self drawLineWidth:lineWidth
-                       star:CGPointMake(i*rect.size.width, 0) end:CGPointMake(i*rect.size.width,rect.size.height)];
-    }
+//    for (int i = 0; i < 2; i++) {
+//        [self drawLineWidth:lineWidth
+//                       star:CGPointMake(i*rect.size.width, 0) end:CGPointMake(i*rect.size.width,rect.size.height)];
+//    }
     
     
     for (int i = 0 ; i < _sourceArr.count; i++) {
@@ -253,7 +255,7 @@
        //线条宽
        CGContextSetLineWidth(context, lineWidth);
        //线条颜色
-       CGContextSetRGBStrokeColor(context, 0.0, 0.0, 0.0, 1.0); //设置线条颜色第一种方法
+       CGContextSetRGBStrokeColor(context, 211/255.0, 211/255.0, 211/255.0, 1.0); //设置线条颜色第一种方法
        //坐标点数组
        CGPoint aPoints[2];
         aPoints[0] = pointStar;//CGPointMake(rect.origin.x, rect.origin.y);

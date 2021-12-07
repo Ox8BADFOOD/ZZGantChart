@@ -11,8 +11,6 @@
 @implementation ZZGantDataTool
 
 +(NSArray<NSDictionary *> *) handleData:(NSString *)dataString fallSleepTime:(NSDate *)fallSleepTime{
-    dataString = @"11111010201002102122002101110212210100110100011111101210121211102101100101121010212101101101110121121010010101000111211012012101100201110111211100100101210020110011110002111110011001010110110201210201011111000010112121101010112111012202122112100110202201200221021120122010111121011011100112111201211101112112212121121111";
-   
     // 多少分钟
     NSInteger minutesCount = dataString.length;
     NSMutableArray * oneArr = [NSMutableArray array];
@@ -23,14 +21,14 @@
 //        [totalArr addObject:tempStr];
         
         if ([tempStr isEqualToString:cacheStr]) {
-            // 连续
+            // 相同的值连续
             NSMutableDictionary *dic = [oneArr.lastObject mutableCopy];
             dic[@"range"] = @([dic[@"range"] intValue] + 1);
             dic[@"end"] = @([dic[@"star"] intValue] + [dic[@"range"] intValue]);
             dic[@"timeEnd"] = [self getTimeFromTimestamp:([fallSleepTime timeIntervalSince1970] + (i+1)*60)],
             oneArr[oneArr.count - 1] = dic;
         }else{
-            // 不连续
+            // 相同的值不连续
             NSDateFormatter *format = [[NSDateFormatter alloc] init];
             [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             NSInteger starTimeIndex = i - 1 > 0 ? i - 1 : 0;
@@ -68,7 +66,7 @@
         
         cacheStr = tempStr;
     }
-    NSLog(@"%@",oneArr);
+//    NSLog(@"%@",oneArr);
     return oneArr;
 }
 
@@ -78,7 +76,7 @@
     NSDate * myDate=[NSDate dateWithTimeIntervalSince1970:stamp];
     //设置时间格式
     NSDateFormatter * formatter=[[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"HH:mm:ss"];
+    [formatter setDateFormat:@"HH:mm"];
     //将时间转换为字符串
     NSString *timeStr=[formatter stringFromDate:myDate];
     return timeStr;
