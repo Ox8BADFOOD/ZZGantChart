@@ -202,6 +202,11 @@
 //    _bubbleLayer.hidden = true;
 }
 
+-(void)hiddenBubble{
+    _bubbleLayer.hidden = true;
+    _dashLine.hidden = true;
+}
+
 -(void)drawRect:(CGRect)rect{
     int itemNum = (int)self.sectionColors.count;
     CGFloat lineWidth = 0.7;

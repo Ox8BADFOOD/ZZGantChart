@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign,readonly) CGFloat bubbleMaxY;
 /// 数据源
 @property(nonatomic,strong) NSArray<NSDictionary*> *sourceArr;
+/// 隐藏气泡
+-(void)hiddenBubble;
 - (instancetype)initWithFrame:(CGRect)frame colors:(NSArray <UIColor *>*)colors NS_DESIGNATED_INITIALIZER;
 
 @end
